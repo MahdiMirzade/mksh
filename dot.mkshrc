@@ -1,0 +1,28 @@
+#!/bin/mksh
+[ -r "$HOME"/.config/shell/profile ] &&. "$HOME"/.config/shell/profile
+[ -r "$HOME"/.config/shell/aliasrc ] &&. "$HOME"/.config/shell/aliasrc
+
+# History
+HISTFILE=$HOME/.config/shell/history
+HISTSIZE=4096
+
+# Prompt
+case $LOGNAME in
+	root) PS1="# "
+	;;
+	*)
+        #PS1='$'
+        PS1=$(echo -e " \e[33m")'${PWD/#"$HOME"/\~}'$(echo "\e[0m ")
+        #PS1=$(echo -e " \e[36m${USER:=$(id -un)}@${HOSTNAME:=$(hostname -s)}:\e[33m")'${PWD/#"$HOME"/\~}'$(echo "\e[0m ")
+        #PS1=$(echo -e " \e[1;34m\e[32m$(date +%H:%M)\e[0m \e[36m${USER:=$(id -un)}@${HOSTNAME:=$(hostname -s)}:\e[33m")'${PWD/#"$HOME"/\~}'$(echo "\e[0m ")
+	;;
+esac
+
+# Binding
+bind ^A=beginning-of-line
+bind ^C=abort
+bind ^E=end-of-line
+bind ^L=clear-screen
+bind ^[[A=search-history-up
+bind ^[[B=search-history-down
+bind ^[#=comment
